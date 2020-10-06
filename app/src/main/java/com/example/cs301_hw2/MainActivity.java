@@ -3,6 +3,7 @@ package com.example.cs301_hw2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.SurfaceView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Face face = findViewById(R.id.faceDisplay);
 
         //setting up spinner to use the array of hairstyles
         hairSpinner = findViewById(R.id.hairSpinner);
