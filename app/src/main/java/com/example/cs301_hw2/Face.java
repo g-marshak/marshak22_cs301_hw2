@@ -179,6 +179,7 @@ public class Face extends SurfaceView {
     @Override
     public void onDraw(Canvas canvas){
         drawFace(canvas, skinPaint);
+        //drawEyes(canvas, eyeScleraPaint);
     }
 
     //helper methods for drawing the face
@@ -190,7 +191,8 @@ public class Face extends SurfaceView {
     }
 
     public void drawEyes(Canvas canvas, Paint eyes){
-
+        //canvas.drawCircle(550, 650, 30, eyeScleraPaint);
+        //canvas.drawCircle(950, 650, 30, eyeScleraPaint);
     }
 
     public void drawHair(Canvas canvas, Paint hair){
