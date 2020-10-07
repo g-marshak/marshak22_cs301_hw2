@@ -75,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
         greenSeek.setOnSeekBarChangeListener(controller);
         blueSeek.setOnSeekBarChangeListener(controller);
 
+        //setting default values for seekbars to whatever the hair color values are randomized to (hair button is checked by default)
+        redSeek.setProgress(face.getHairColorR());
+        greenSeek.setProgress(face.getHairColorG());
+        blueSeek.setProgress(face.getHairColorB());
+
         //setting up randomize button
         randomButton = findViewById(R.id.randomFace);
         randomButton.setOnClickListener(controller);

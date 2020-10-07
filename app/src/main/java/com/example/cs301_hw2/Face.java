@@ -46,7 +46,7 @@ public class Face extends SurfaceView {
     Paint hairPaint = new Paint();
 
     /**
-     * constructor for the face class, randomizes values
+     * constructor for the face class, randomizes values and initializes paints based on those values
      */
     /**
      External Citation
@@ -62,13 +62,11 @@ public class Face extends SurfaceView {
         //for some reason, initial randomization does not effect hairstyle
         //default value for spinner seems to override randomized value, needs to be randomized manually in onCreate
 
-        //init paints based on defining variables (or hardcoded colors)
-        skinPaint.setColor(getSkinColor());
-        eyeIrisPaint.setColor(getEyeColor());
+        //init paints for the hardcoded colors
+        //randomized ones are set up later so they can be reset when colors are changeds
         eyeScleraPaint.setColor(Color.WHITE);
         eyePupilPaint.setColor(Color.BLACK);
         eyePupilPaint.setStrokeWidth(3);
-        hairPaint.setColor(getHairColor());
     }
 
     /**
@@ -182,8 +180,8 @@ public class Face extends SurfaceView {
     public int getColorSelectIndex() { return colorSelectIndex; }
 
     /**
-     * method to draw the face itself on a given canvas
-     * @param canvas
+     * method to draw the entire face itself on a given canvas
+     * @param canvas canvas being drawn on
      */
     @Override
     public void onDraw(Canvas canvas){
@@ -192,6 +190,7 @@ public class Face extends SurfaceView {
         hairPaint.setColor(getHairColor());
         eyeIrisPaint.setColor(getEyeColor());
 
+        //call helper methods to draw different parts of the face
         drawHair(canvas);
         drawFace(canvas);
         canvas.drawLine(650, 800, 850, 800, eyePupilPaint); //gonna be lazy and just use same paint (black)
@@ -199,6 +198,11 @@ public class Face extends SurfaceView {
     }
 
     //helper methods for drawing the face
+
+    /**
+     * helper method for drawing entire face, just draws face separate from eyes/hair/mouth
+     * @param canvas canvas to draw on
+     */
     public void drawFace(Canvas canvas){
         //draw one circle at the center of the screen, then one on either side for ears
         canvas.drawCircle(750, 700, 300, skinPaint);
@@ -206,6 +210,10 @@ public class Face extends SurfaceView {
         canvas.drawCircle(1050, 700, 100, skinPaint);
     }
 
+    /**
+     * helper method for drawing eyes
+     * @param canvas canvas to draw on
+     */
     public void drawEyes(Canvas canvas){
         //eye whites
         canvas.drawCircle(600, 650, 50, eyeScleraPaint);
@@ -220,8 +228,12 @@ public class Face extends SurfaceView {
         canvas.drawCircle(900, 650, 10, eyePupilPaint);
     }
 
+    /**
+     * helper method for drawing hair
+     * @param canvas canvas to draw on
+     */
     public void drawHair(Canvas canvas){
-        //case statement to determine what hairstyle to draw
+        //case statement to determine what hairstyle to draw (not very exciting cuts, i know)
         switch (getHairStyle()){
             case 0: //shaved
                 //dont draw anything

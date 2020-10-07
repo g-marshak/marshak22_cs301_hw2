@@ -14,6 +14,14 @@ public class FaceController implements SeekBar.OnSeekBarChangeListener, AdapterV
     private SeekBar greenSeek;
     private SeekBar blueSeek;
 
+    /**
+     External Citation
+     Date: 10/6/2020
+     Problem: wasn't sure how to change seekbar values from inside controller
+     Resource: demo code from class
+     Solution: checked to see how seekbar was changed from different listeners
+               (i needed to pass them in like i did with the face)
+     */
     public FaceController(Face f, SeekBar r, SeekBar g, SeekBar b){
         face = f;
         redSeek = r;
@@ -123,6 +131,25 @@ public class FaceController implements SeekBar.OnSeekBarChangeListener, AdapterV
     @Override
     public void onClick(View view) {
         face.randomize();
+        switch (face.getColorSelectIndex()){
+            case 0:
+                redSeek.setProgress(face.getHairColorR());
+                greenSeek.setProgress(face.getHairColorG());
+                blueSeek.setProgress(face.getHairColorB());
+                break;
+            case 1:
+                redSeek.setProgress(face.getEyeColorR());
+                greenSeek.setProgress(face.getEyeColorG());
+                blueSeek.setProgress(face.getEyeColorB());
+                break;
+            case 2:
+                redSeek.setProgress(face.getSkinColorR());
+                greenSeek.setProgress(face.getSkinColorG());
+                blueSeek.setProgress(face.getSkinColorB());
+                break;
+            default:
+                //dont change bar values. this shouldn't get called bc i have a default checked val
+        }
         face.invalidate();
     }
 }
