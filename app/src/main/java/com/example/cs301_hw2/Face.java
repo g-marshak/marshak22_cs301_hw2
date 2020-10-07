@@ -36,6 +36,8 @@ public class Face extends SurfaceView {
 
     private int hairStyle;
 
+    private int colorSelectIndex;
+
     //set up paints for face/eyes/hair
     Paint skinPaint = new Paint();
     Paint eyeIrisPaint = new Paint();
@@ -63,6 +65,7 @@ public class Face extends SurfaceView {
         eyeIrisPaint.setColor(getEyeColor());
         eyeScleraPaint.setColor(Color.WHITE);
         eyePupilPaint.setColor(Color.BLACK);
+        eyePupilPaint.setStrokeWidth(3);
         hairPaint.setColor(getHairColor());
     }
 
@@ -136,6 +139,8 @@ public class Face extends SurfaceView {
         hairStyle = style;
     }
 
+    public void setColorSelectIndex(int index) { colorSelectIndex = index; }
+
     //block of getter functions for instance variables
     public int getSkinColor() {
         return skinColor;
@@ -172,30 +177,65 @@ public class Face extends SurfaceView {
         return hairStyle;
     }
 
+    public int getColorSelectIndex() { return colorSelectIndex; }
+
     /**
      * method to draw the face itself on a given canvas
      * @param canvas
      */
     @Override
     public void onDraw(Canvas canvas){
-        drawFace(canvas, skinPaint);
-        //drawEyes(canvas, eyeScleraPaint);
+        //update paints
+        skinPaint.setColor(getSkinColor());
+        hairPaint.setColor(getHairColor());
+        eyeIrisPaint.setColor(getEyeColor());
+
+        drawHair(canvas);
+        drawFace(canvas);
+        canvas.drawLine(650, 800, 850, 800, eyePupilPaint); //gonna be lazy and just use same paint (black)
+        drawEyes(canvas);
     }
 
     //helper methods for drawing the face
-    public void drawFace(Canvas canvas, Paint skin){
+    public void drawFace(Canvas canvas){
         //draw one circle at the center of the screen, then one on either side for ears
         canvas.drawCircle(750, 700, 300, skinPaint);
         canvas.drawCircle(450, 700, 100, skinPaint);
         canvas.drawCircle(1050, 700, 100, skinPaint);
     }
 
-    public void drawEyes(Canvas canvas, Paint eyes){
-        //canvas.drawCircle(550, 650, 30, eyeScleraPaint);
-        //canvas.drawCircle(950, 650, 30, eyeScleraPaint);
+    public void drawEyes(Canvas canvas){
+        //eye whites
+        canvas.drawCircle(600, 650, 50, eyeScleraPaint);
+        canvas.drawCircle(900, 650, 50, eyeScleraPaint);
+
+        //irises
+        canvas.drawCircle(600, 650, 30, eyeIrisPaint);
+        canvas.drawCircle(900, 650, 30, eyeIrisPaint);
+
+        //pupils
+        canvas.drawCircle(600, 650, 10, eyePupilPaint);
+        canvas.drawCircle(900, 650, 10, eyePupilPaint);
     }
 
-    public void drawHair(Canvas canvas, Paint hair){
+    public void drawHair(Canvas canvas){
         //case statement to determine what hairstyle to draw
+        switch (getHairStyle()){
+            case 0: //shaved
+                //dont draw anything
+                break;
+            case 1: //short
+                canvas.drawRect(475, 350, 1025, 700, hairPaint);
+                break;
+            case 2://medium
+                canvas.drawRect(475, 250, 1025, 700, hairPaint);
+                break;
+            case 3: //long
+                canvas.drawRect(475, 0, 1025, 700, hairPaint);
+                break;
+            default:
+                //just dont draw anything
+
+        }
     }
 }

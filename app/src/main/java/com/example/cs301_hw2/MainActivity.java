@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.SurfaceView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 
 /**
@@ -26,6 +29,11 @@ public class MainActivity extends AppCompatActivity {
     String[] hairstyles = {"Shaved", "Short", "Medium", "Long"} ;
 
     private Spinner hairSpinner;
+    private RadioGroup colorSelect;
+    private SeekBar redSeek;
+    private SeekBar blueSeek;
+    private SeekBar greenSeek;
+    private Button randomButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Face face = findViewById(R.id.faceDisplay);
+
+        //creating facecontroller instance
+        FaceController controller = new FaceController(face);
 
         //setting up spinner to use the array of hairstyles
         hairSpinner = findViewById(R.id.hairSpinner);
@@ -42,7 +53,24 @@ public class MainActivity extends AppCompatActivity {
                 this.hairstyles
         );
 
-        //connecting spinner and adapter so spinner will display test from array
+        //connecting spinner and adapter so spinner will display test from array (and connecting to controller)
         hairSpinner.setAdapter(hairstyleAdapter);
+        hairSpinner.setOnItemSelectedListener(controller);
+
+        //setting up radio button group
+        colorSelect = findViewById(R.id.colorSelectionGroup);
+        colorSelect.setOnCheckedChangeListener(controller);
+
+        //setting up seekbars
+        redSeek = findViewById(R.id.red);
+        redSeek.setOnSeekBarChangeListener(controller);
+        blueSeek = findViewById(R.id.blue);
+        blueSeek.setOnSeekBarChangeListener(controller);
+        greenSeek = findViewById(R.id.green);
+        greenSeek.setOnSeekBarChangeListener(controller);
+
+        //setting up randomize button
+        randomButton = findViewById(R.id.randomFace);
+        randomButton.setOnClickListener(controller);
     }
 }
