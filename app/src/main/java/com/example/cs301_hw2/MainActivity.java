@@ -10,6 +10,8 @@ import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 
+import java.util.Random;
+
 /**
  * main activity of the app, sets up functionality of the actual interface
  * to create a face
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Random rand = new Random();
 
         Face face = findViewById(R.id.faceDisplay);
 
@@ -61,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         //connecting spinner and adapter so spinner will display test from array (and connecting to controller)
         hairSpinner.setAdapter(hairstyleAdapter);
         hairSpinner.setOnItemSelectedListener(controller);
+        hairSpinner.setSelection(rand.nextInt(4)); //manually randomizing hairstyle on setup
 
         //setting up radio button group
         colorSelect = findViewById(R.id.colorSelectionGroup);

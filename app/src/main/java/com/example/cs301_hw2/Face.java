@@ -59,6 +59,8 @@ public class Face extends SurfaceView {
         super(context, attrs);
         setWillNotDraw(false);
         this.randomize();
+        //for some reason, initial randomization does not effect hairstyle
+        //default value for spinner seems to override randomized value, needs to be randomized manually in onCreate
 
         //init paints based on defining variables (or hardcoded colors)
         skinPaint.setColor(getSkinColor());
