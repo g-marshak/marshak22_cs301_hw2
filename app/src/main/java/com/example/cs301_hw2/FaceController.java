@@ -10,9 +10,15 @@ import android.widget.SeekBar;
  */
 public class FaceController implements SeekBar.OnSeekBarChangeListener, AdapterView.OnItemSelectedListener, RadioGroup.OnCheckedChangeListener, View.OnClickListener {
     private Face face;
+    private SeekBar redSeek;
+    private SeekBar greenSeek;
+    private SeekBar blueSeek;
 
-    public FaceController(Face f){
+    public FaceController(Face f, SeekBar r, SeekBar g, SeekBar b){
         face = f;
+        redSeek = r;
+        greenSeek = g;
+        blueSeek = b;
     }
 
     @Override
@@ -98,10 +104,19 @@ public class FaceController implements SeekBar.OnSeekBarChangeListener, AdapterV
     public void onCheckedChanged(RadioGroup radioGroup, int index) {
         if(index == R.id.hair){
             face.setColorSelectIndex(0);
+            redSeek.setProgress(face.getHairColorR());
+            greenSeek.setProgress(face.getHairColorG());
+            blueSeek.setProgress(face.getHairColorB());
         } else if(index == R.id.eyes){
             face.setColorSelectIndex(1);
+            redSeek.setProgress(face.getEyeColorR());
+            greenSeek.setProgress(face.getEyeColorG());
+            blueSeek.setProgress(face.getEyeColorB());
         } else if(index == R.id.skin){
             face.setColorSelectIndex(2);
+            redSeek.setProgress(face.getSkinColorR());
+            greenSeek.setProgress(face.getSkinColorG());
+            blueSeek.setProgress(face.getSkinColorB());
         }
     }
 

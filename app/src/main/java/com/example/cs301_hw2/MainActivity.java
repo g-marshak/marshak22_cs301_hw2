@@ -42,8 +42,13 @@ public class MainActivity extends AppCompatActivity {
 
         Face face = findViewById(R.id.faceDisplay);
 
+        //init seekbars up here so i can pass them into the controller
+        redSeek = findViewById(R.id.red);
+        greenSeek = findViewById(R.id.green);
+        blueSeek = findViewById(R.id.blue);
+
         //creating facecontroller instance
-        FaceController controller = new FaceController(face);
+        FaceController controller = new FaceController(face, redSeek, greenSeek, blueSeek);
 
         //setting up spinner to use the array of hairstyles
         hairSpinner = findViewById(R.id.hairSpinner);
@@ -61,13 +66,10 @@ public class MainActivity extends AppCompatActivity {
         colorSelect = findViewById(R.id.colorSelectionGroup);
         colorSelect.setOnCheckedChangeListener(controller);
 
-        //setting up seekbars
-        redSeek = findViewById(R.id.red);
+        //setting up seekbars cont
         redSeek.setOnSeekBarChangeListener(controller);
-        blueSeek = findViewById(R.id.blue);
-        blueSeek.setOnSeekBarChangeListener(controller);
-        greenSeek = findViewById(R.id.green);
         greenSeek.setOnSeekBarChangeListener(controller);
+        blueSeek.setOnSeekBarChangeListener(controller);
 
         //setting up randomize button
         randomButton = findViewById(R.id.randomFace);
